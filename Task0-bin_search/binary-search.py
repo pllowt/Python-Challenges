@@ -1,5 +1,6 @@
 # Add more comments!!!
 
+# A tree node class that contains a left and right 'pointer' to the next tree node
 class TreeNodeStruct:
     def __init__(self, value, left=None, right=None):
         self.value = value
