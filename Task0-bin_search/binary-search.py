@@ -1,5 +1,3 @@
-# Add more comments!!!
-
 # A tree node class that contains a left and right 'pointer' to the next tree node
 class TreeNodeStruct:
     def __init__(self, value, left=None, right=None):
@@ -7,7 +5,7 @@ class TreeNodeStruct:
         self.left: TreeNodeStruct = left
         self.right: TreeNodeStruct = right
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"Value is {self.value}"
 
 
@@ -20,10 +18,16 @@ class BinarySearchTree:
         # *args returns a tuple
         if len(args) == 0:
             print("Usage: insertion(...)")
-            return
+            exit(1)
+
+        '''
+        check to see if any of the args are not of type TreeNodeStruct
+        if not, exit with error code 1
+        '''
         for item in args:
-            if item.value < item + 1:
-                print(item.value)
+            if type(item) is not TreeNodeStruct:
+                print("Usage: insertion (arg) not of type TreeNodeStruct")
+                exit(1)
 
 
 
