@@ -9,33 +9,19 @@ class TreeNodeStruct:
         return f"Value is {self.value}"
 
 
-class BinarySearchTree:
-    def __init__(self):
-        pass
+def look_up(value) -> bool:
+    pass
 
-    # This needs to be looked at!
-    def insertion(self, *args: TreeNodeStruct):
-        # *args returns a tuple
-        if len(args) == 0:
-            print("Usage: insertion(...)")
-            exit(1)
 
-        '''
-        check to see if any of the args are not of type TreeNodeStruct
-        if not, exit with error code 1
-        '''
-        for item in args:
-            if type(item) is not TreeNodeStruct:
-                print("Usage: insertion (arg) not of type TreeNodeStruct")
-                exit(1)
-
+# This needs to be looked at!
+def multiple_insertion(self, *args: TreeNodeStruct):
+    pass
 
 
 def main():
     first_node = TreeNodeStruct(value=10)
     second_node = TreeNodeStruct(value=20)
-    tree = BinarySearchTree()
-    tree.insertion(first_node, second_node)
+    multiple_insertion(first_node, second_node)
 
 
 if __name__ == '__main__':
