@@ -9,41 +9,65 @@ class TreeNodeStruct:
         return f"Value is {self.value}"
 
 
-def look_up(root_node: TreeNodeStruct, value) -> bool:
+def look_up(tree_node: TreeNodeStruct, value) -> bool:
     # Base case
-    if root_node is None:
+    if tree_node is None:
         return False
     # Check value to be searched is less than tree node value. Smaller values on left
-    if value < root_node.value:
-        return look_up(root_node.left, value)
+    if value < tree_node.value:
+        return look_up(tree_node.left, value)
     # Check value to be searched is greater than tree node value. larger values on right
-    elif value > root_node.value:
-        return look_up(root_node.right, value)
+    elif value > tree_node.value:
+        return look_up(tree_node.right, value)
     # second base case
-    elif value == root_node.value:
+    elif value == tree_node.value:
         return True
 
 
-def check_insertion_duplication(root_node: TreeNodeStruct, insertion_node: TreeNodeStruct) -> bool:
-    if look_up(root_node, insertion_node.value):
+def check_insertion_duplication(tree_node: TreeNodeStruct, value) -> bool:
+    if look_up(tree_node, value):
         return False
     else:
         return True
 
 
-def insertion():
-    pass
+# Single value insertion
+def insertion(tree_node: TreeNodeStruct, value) -> TreeNodeStruct:
+    # Base case
+    if tree_node is None:
+        return TreeNodeStruct(value)
+    # Check value is not same as the tree node. If it is return with one value to prevent duplicates
+    if tree_node.value != value:
+        if value < tree_node.value and not tree_node.left:
+            tree_node.left = insertion(tree_node.left, value)
+        # Check value to be searched is greater than tree node value. larger values on right
+        elif value > tree_node.value and not tree_node.right:
+            tree_node.right = insertion(tree_node.right, value)
+        elif value > tree_node.value and tree_node.right:
+            insertion(tree_node.right, value)
+        elif value < tree_node.value and tree_node.left:
+            insertion(tree_node.left, value)
+    else:
+        return tree_node
 
 
-# This needs to be looked at!
-def multiple_insertion(*args: TreeNodeStruct):
-    pass
+def print_tree_in_order(tree_node: TreeNodeStruct):
+    if tree_node:
+        print_tree_in_order(tree_node.left)
+        print(tree_node.value)
+        print_tree_in_order(tree_node.right)
 
 
 def main():
-    first_node = TreeNodeStruct(value=10)
-    second_node = TreeNodeStruct(value=20)
-    multiple_insertion(first_node, second_node)
+    root_node = TreeNodeStruct(value=5)
+    insertion(root_node, 3)
+    insertion(root_node, 2)
+    insertion(root_node, 4)
+    insertion(root_node, 7)
+    insertion(root_node, 6)
+    insertion(root_node, 8)
+
+    print_tree_in_order(root_node)
 
 
 if __name__ == '__main__':
