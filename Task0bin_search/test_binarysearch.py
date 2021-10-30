@@ -1,7 +1,7 @@
 import unittest
 from binarysearch import TreeNodeStruct
-from binarysearch  import looks_up_value
-from binarysearch  import inserts_node
+from binarysearch import looks_up_value
+from binarysearch import inserts_node
 
 class TestBinSearchTree(unittest.TestCase):
     def test_binary_search_tree_instantiates_with_value(self):
