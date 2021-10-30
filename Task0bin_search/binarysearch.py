@@ -1,6 +1,7 @@
+
 class TreeNodeStruct:
     def __init__(self, value: int, left: object = None, right: object = None):
-        """A class for the nodes of a BST. A tree node contains an integer value, left node and right node.
+        """Class for the nodes of a BST. A tree node contains an integer value, left node and right node.
 
         Args:
             value (integer): Integer value of the node. 
@@ -15,50 +16,52 @@ class TreeNodeStruct:
         return f"Value is {self.value}"
 
 
-def look_up(tree_node: TreeNodeStruct, value: int) -> bool:
+def looks_up_value(tree_node: TreeNodeStruct, value: int) -> bool:
     """looks up particular value in the BST
     Args:
-        tree_node (TreeNodeStruct): [description]
-        value (int): [description]
+        tree_node (TreeNodeStruct): 
+        value (int): Integer Node value
 
     Returns:
-        bool: [description]
+        bool: returns True if value is in tree
     """
     # Base case
     if tree_node is None:
         return False
     # Check value to be searched is less than tree node value. Smaller values on left
     if value < tree_node.value:
-        return look_up(tree_node.left, value)
+        return looks_up_value(tree_node.left, value)
     # Check value to be searched is greater than tree node value. larger values on right
     elif value > tree_node.value:
-        return look_up(tree_node.right, value)
+        return looks_up_value(tree_node.right, value)
     # second base case
     elif value == tree_node.value:
         return True
 
 
-# Single value insertion
-def insertion(tree_node: TreeNodeStruct, value) -> TreeNodeStruct:
+#  into the BST
+def inserts_node(tree_node: TreeNodeStruct, value: int) -> TreeNodeStruct:
+    """Recursive function that inserts node into the tree
+    """
     # Base case
     if tree_node is None:
         return TreeNodeStruct(value)
     # Check value is not same as the tree node. If it is return with one value to prevent duplicates
     if tree_node.value != value:
         if value < tree_node.value and not tree_node.left:
-            tree_node.left = insertion(tree_node.left, value)
+            tree_node.left = inserts_node(tree_node.left, value)
         # Check value to be searched is greater than tree node value. larger values on right
         elif value > tree_node.value and not tree_node.right:
-            tree_node.right = insertion(tree_node.right, value)
+            tree_node.right = inserts_node(tree_node.right, value)
         elif value > tree_node.value and tree_node.right:
-            insertion(tree_node.right, value)
+            inserts_node(tree_node.right, value)
         elif value < tree_node.value and tree_node.left:
-            insertion(tree_node.left, value)
+            inserts_node(tree_node.left, value)
     else:
         return tree_node
 
 
-def deletion():
+def delete_node():
     # three possibilities
     # 1: Node to be deleted is the leaf; just remove from tree
     # 2: Node to be deleted has only one child; copy child to the node and delete child
@@ -71,6 +74,7 @@ def deletion():
     # if node not found return from function. Return False?
     # if node found:
     # count node children
+    
     pass
 
 
@@ -83,12 +87,12 @@ def print_tree_in_order(tree_node: TreeNodeStruct):
 
 def main():
     root_node = TreeNodeStruct(value=5)
-    insertion(root_node, 3)
-    insertion(root_node, 2)
-    insertion(root_node, 4)
-    insertion(root_node, 7)
-    insertion(root_node, 6)
-    insertion(root_node, 8)
+    inserts_node(root_node, 3)
+    inserts_node(root_node, 2)
+    inserts_node(root_node, 4)
+    inserts_node(root_node, 7)
+    inserts_node(root_node, 6)
+    inserts_node(root_node, 8)
 
     print_tree_in_order(root_node)
 

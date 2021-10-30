@@ -2,7 +2,7 @@
     "python.testing.unittestArgs": [
         "-v",
         "-s",
-        "./Task0-bin_search",
+        "./Task0bin_search",
         "-p",
         "test_*.py"
     ],
