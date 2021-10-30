@@ -1,6 +1,12 @@
-# A tree node class that contains a left and right 'pointer' to the next tree node
 class TreeNodeStruct:
-    def __init__(self, value, left=None, right=None):
+    def __init__(self, value: int, left: object = None, right: object = None):
+        """A class for the nodes of a BST. A tree node contains an integer value, left node and right node.
+
+        Args:
+            value (integer): Integer value of the node. 
+            left (object, optional): left node object. Defaults to None.
+            right (object, optional): right node object. Defaults to None.
+        """
         self.value = value
         self.left: TreeNodeStruct = left
         self.right: TreeNodeStruct = right
@@ -9,7 +15,15 @@ class TreeNodeStruct:
         return f"Value is {self.value}"
 
 
-def look_up(tree_node: TreeNodeStruct, value) -> bool:
+def look_up(tree_node: TreeNodeStruct, value: int) -> bool:
+    """looks up particular value in the BST
+    Args:
+        tree_node (TreeNodeStruct): [description]
+        value (int): [description]
+
+    Returns:
+        bool: [description]
+    """
     # Base case
     if tree_node is None:
         return False
@@ -21,13 +35,6 @@ def look_up(tree_node: TreeNodeStruct, value) -> bool:
         return look_up(tree_node.right, value)
     # second base case
     elif value == tree_node.value:
-        return True
-
-
-def check_insertion_duplication(tree_node: TreeNodeStruct, value) -> bool:
-    if look_up(tree_node, value):
-        return False
-    else:
         return True
 
 
@@ -49,6 +56,22 @@ def insertion(tree_node: TreeNodeStruct, value) -> TreeNodeStruct:
             insertion(tree_node.left, value)
     else:
         return tree_node
+
+
+def deletion():
+    # three possibilities
+    # 1: Node to be deleted is the leaf; just remove from tree
+    # 2: Node to be deleted has only one child; copy child to the node and delete child
+    # 3:  Node to be deleted has two children: Find inorder successor of the node.
+    #     Copy contents of the inorder successor to the node and delete the inorder successor.
+    #     Note that inorder predecessor can also be used. 
+    
+    # Return True if node found and deleted successfully. 
+    # traverse tree to find node
+    # if node not found return from function. Return False?
+    # if node found:
+    # count node children
+    pass
 
 
 def print_tree_in_order(tree_node: TreeNodeStruct):
