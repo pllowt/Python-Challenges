@@ -37,6 +37,12 @@ class TestBinSearchTree(unittest.TestCase):
         test_noderoot = TreeNode(value=500, left=test_node1, right=test_node2)
         self.assertEqual(looks_up_value(test_noderoot, 700), False)
         
+def test_delete_deletes_node_in_tree_without_removing_its_children(self):
+        test_node1 = TreeNode(value=10)
+        test_node2 = TreeNode(value=50, left= test_node1)
+        test_noderoot = TreeNode(value=500, left=test_node1, right=test_node2)
+        self.assertEqual(looks_up_value(test_noderoot, 700), False)
+        
 
 
 # Helper function for initialising TreeNodes
