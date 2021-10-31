@@ -32,12 +32,16 @@ class TestBinSearchTree(unittest.TestCase):
         self.assertEqual(looks_up_value(test_noderoot, 10), True)
 
     def test_looks_up_value_returns_false_if_value_not_in_tree(self):
-        test_node1 = TreeNode(value=10)
-        test_node2 = TreeNode(value=50, left= test_node1)
-        test_node3 = TreeNode(value=600, left=test_node1)
-        test_noderoot = TreeNode(value=500, left=test_node2, right=test_node3)
+        list_of_nodes = initialise_tree()
+        test_noderoot = TreeNode(value=500, left=list_of_nodes[1], right=list_of_nodes[2])
         self.assertEqual(looks_up_value(test_noderoot, 700), False)
 
+# Helper function for initialising TreeNodes
+def initialise_tree():
+    test_node1 = TreeNode(value=10)
+    test_node2 = TreeNode(value=50, left= test_node1)
+    test_node3 = TreeNode(value=600, left=test_node2)
+    return list(test_node1, test_node2, test_node3)
 
 # Helper function for testing duplication
 # def check_inserts_node_duplication(tree_node: TreeNode, value) -> bool:
