@@ -9,7 +9,14 @@ def main():
     BST.inserts_node(root_node, 7)
     BST.inserts_node(root_node, 6)
     BST.inserts_node(root_node, 8)
-
+    
+    print('Tree before deletion')
+    BST.print_tree_in_order(root_node)
+    print('Tree after deletion')
+    BST.deletes_node(root_node, 8)
+    BST.print_tree_in_order(root_node)
+    print('Tree after deletion 2')
+    BST.deletes_node(root_node, 2)
     BST.print_tree_in_order(root_node)
 
 
