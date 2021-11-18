@@ -1,76 +1,68 @@
-"""Script to create a Binary Search Tree and associated functions
+"""Program to create a Binary Search Tree (BST) and associated functions
 """
-class TreeNode:
-    """Main TreeNode Class
+class BST:
+    """Main BST Class
 
     Returns:
-        Object: TreeNode object with left and right nodes 
+        Object: BST object with left and right nodes 
     """
-    def __init__(self, value: int = None, left: object = None, right: object = None):
+    def __init__(self, value: int = 0, left: object = None, right: object = None):
         """init constructor returns node with left and right node objects defaulted to None.
 
         Args:
-            value (integer): Integer value of the node. Defaults to None. 
+            value (integer): Integer value of the node. Defaults to 0. 
             left (object, optional): left node object. Defaults to None.
             right (object, optional): right node object. Defaults to None.
         """
         self.value = value
-        self.left: TreeNode = left
-        self.right: TreeNode = right
-
-    def __str__(self) -> str:
-        return f"Value is {self.value}"
-    
-    
-def inserts_node(tree_node: TreeNode, value: int) -> TreeNode:
-    """Recursive function that inserts node into the tree
-    """
-    # Base case
-    if tree_node is None:
-        return TreeNode(value)
-    # Check value is not same as the tree node. If it is, return with one value to prevent duplicates
-    if tree_node.value != value:
-        if value < tree_node.value and not tree_node.left:
-            tree_node.left = inserts_node(tree_node.left, value)
-        # Check value to be searched is greater than tree node value. larger values on right
-        elif value > tree_node.value and not tree_node.right:
-            tree_node.right = inserts_node(tree_node.right, value)
-        elif value > tree_node.value and tree_node.right:
-            inserts_node(tree_node.right, value)
-        elif value < tree_node.value and tree_node.left:
-            inserts_node(tree_node.left, value)
-    else:
+        self.left: BST = left
+        self.right: BST = right
+        
+            
+    def insert_node_obj_into_bst(self, value: int, tree_node: object):
+        """Recursive function that inserts node into the tree
+        """
+        # Base case
+        if tree_node is None:
+            return BST(value)
+        else:
+            if tree_node.value == value:
+                return tree_node
+            elif value < tree_node.value:
+                tree_node.left = self.insert_node_obj_into_bst(value, tree_node.left)
+            elif value > tree_node.value:
+                tree_node.right = self.insert_node_obj_into_bst(value, tree_node.right)
         return tree_node
+            
+  
+    
+    def look_up_value(self, tree_node: object, value: int) -> bool:
+        """looks up particular value in the BST
+        Args:
+            tree_node (object): 
+            value (int): Integer Node value
 
+        Returns:
+            bool: returns True if value is in tree
+        """
+        # Base case
+        if tree_node is None:
+            return False
+        # Check value to be searched is less than tree node value. Smaller values on left
+        if value < tree_node.value:
+            return self.look_up_value(tree_node.left, value)
+        # Check value to be searched is greater than tree node value. larger values on right
+        elif value > tree_node.value:
+            return self.look_up_value(tree_node.right, value)
+        # second base case
+        elif value == tree_node.value:
+            return True
 
-def looks_up_value(tree_node: TreeNode, value: int) -> bool:
-    """looks up particular value in the BST
+def deletes_node(tree_node: BST, value: int):
+    """Deletes particular value in the BST
+
     Args:
-        tree_node (TreeNode): 
-        value (int): Integer Node value
-
-    Returns:
-        bool: returns True if value is in tree
-    """
-    # Base case
-    if tree_node is None:
-        return False
-    # Check value to be searched is less than tree node value. Smaller values on left
-    if value < tree_node.value:
-        return looks_up_value(tree_node.left, value)
-    # Check value to be searched is greater than tree node value. larger values on right
-    elif value > tree_node.value:
-        return looks_up_value(tree_node.right, value)
-    # second base case
-    elif value == tree_node.value:
-        return True
-
-
-def deletes_node(tree_node: TreeNode, value: int):
-    """Deletes particular value in the BSR
-
-    Args:
-        tree_node (TreeNode):
+        tree_node (BST):
         value (int): Integer Node value
     """
     # Base case:
@@ -101,6 +93,9 @@ def deletes_node(tree_node: TreeNode, value: int):
         tree_node.left = deletes_node(tree_node.left, temporary_node.value)
     return tree_node
 
+    def __str__(self) -> str:
+        return f"Value is {self.value}"
+
 
 def find_maximum_in_tree(tree_node):
     current_node = tree_node
@@ -109,9 +104,24 @@ def find_maximum_in_tree(tree_node):
         current_node = current_node.right
     return current_node
 
-def print_tree_in_order(tree_node: TreeNode):
+
+def print_tree_in_order(tree_node: BST):
     if tree_node:
         print_tree_in_order(tree_node.left)
         print(tree_node.value)
         print_tree_in_order(tree_node.right)
 
+
+def main():
+    root_node = BST(10)
+    print(root_node)
+    root_node.insert_node_obj_into_bst(20, root_node)
+    root_node.insert_node_obj_into_bst(6, root_node)
+    root_node.insert_node_obj_into_bst(9, root_node)
+    value_in_tree = root_node.look_up_value(root_node, 9)
+    print(value_in_tree)
+    print_tree_in_order(root_node)
+
+
+if __name__ == '__main__':
+    main()
