@@ -17,8 +17,8 @@ class BST:
         self.value = value
         self.left: BST = left
         self.right: BST = right
-        
-            
+    
+
     def insert_node_obj_into_bst(self, value: int, tree_node: object):
         """Recursive function that inserts node into the tree
         """
@@ -33,10 +33,9 @@ class BST:
             elif value > tree_node.value:
                 tree_node.right = self.insert_node_obj_into_bst(value, tree_node.right)
         return tree_node
-            
-  
     
-    def look_up_value(self, tree_node: object, value: int) -> bool:
+    
+    def look_up_value(self, value: int, tree_node: object) -> bool:
         """looks up particular value in the BST
         Args:
             tree_node (object): 
@@ -50,77 +49,92 @@ class BST:
             return False
         # Check value to be searched is less than tree node value. Smaller values on left
         if value < tree_node.value:
-            return self.look_up_value(tree_node.left, value)
+            return self.look_up_value(value, tree_node.left)
         # Check value to be searched is greater than tree node value. larger values on right
         elif value > tree_node.value:
-            return self.look_up_value(tree_node.right, value)
+            return self.look_up_value(value, tree_node.right)
         # second base case
         elif value == tree_node.value:
             return True
+    
+    
+    def deletes_node(self, value: int, tree_node: object):
+        """Deletes particular value in the BST
 
-def deletes_node(tree_node: BST, value: int):
-    """Deletes particular value in the BST
+        Args:
+            tree_node (object)
+            value (int): Integer Node value
+        """
+        # Base case:
+        if tree_node is None:
+            return tree_node
+        
+        # Conditional statements for checking Node value against arg value
+        if value < tree_node.value:
+            tree_node.left = self.deletes_node(value, tree_node.left)
+        elif value > tree_node.value:
+            tree_node.right = self.deletes_node(value, tree_node.right)
+        else:
+            # Cases 1 and 2: Node with one or no children
+            if tree_node.left is None:
+                temporary_node = tree_node.right
+                tree_node = None
+                return temporary_node
+            elif tree_node.right is None:
+                temporary_node = tree_node.left
+                tree_node = None
+                return temporary_node
+            
+            # Case 3 : Node with two children, find the maximum in the left tree
+            temporary_node = self.find_maximum_in_tree(tree_node.left)
+            # set current node's value to temporary node's value
+            tree_node.value = temporary_node.value
 
-    Args:
-        tree_node (BST):
-        value (int): Integer Node value
-    """
-    # Base case:
-    if tree_node is None:
+            tree_node.left = self.deletes_node( temporary_node.value, tree_node.left)
         return tree_node
     
-    # Conditional statements for checking Node value against arg value
-    if value < tree_node.value:
-        tree_node.left = deletes_node(tree_node.left, value)
-    elif value > tree_node.value:
-        tree_node.right = deletes_node(tree_node.right, value)
-    else:
-        # Cases 1 and 2: Node with one or no children
-        if tree_node.left is None:
-            temporary_node = tree_node.right
-            tree_node = None
-            return temporary_node
-        elif tree_node.right is None:
-            temporary_node = tree_node.left
-            tree_node = None
-            return temporary_node
-        
-        # Case 3 : Node with two children
-        temporary_node = find_maximum_in_tree(tree_node.left)
-        # set current node's value to temporary node's value
-        tree_node.value = temporary_node.value
+    
+    def find_maximum_in_tree(self, tree_node: object):
+        """finds maximum value in any subtree/ tree
 
-        tree_node.left = deletes_node(tree_node.left, temporary_node.value)
-    return tree_node
+        Args:
+            tree_node (object)
 
+        Returns:
+            BST Object: with left and right nodes 
+        """
+        current_node = tree_node
+        # loop to find the largest value in subtree
+        while(current_node.right is not None):
+            current_node = current_node.right
+        return current_node
+    
+
+    def print_tree_in_order(self, tree_node: object):
+        if tree_node:
+            self.print_tree_in_order(tree_node.left)
+            print(tree_node.value)
+            self.print_tree_in_order(tree_node.right)
+    
+           
     def __str__(self) -> str:
         return f"Value is {self.value}"
 
 
-def find_maximum_in_tree(tree_node):
-    current_node = tree_node
-    # loop to find the largest value in subtree
-    while(current_node.right is not None):
-        current_node = current_node.right
-    return current_node
-
-
-def print_tree_in_order(tree_node: BST):
-    if tree_node:
-        print_tree_in_order(tree_node.left)
-        print(tree_node.value)
-        print_tree_in_order(tree_node.right)
-
-
 def main():
-    root_node = BST(10)
+    root_node = BST(4)
     print(root_node)
-    root_node.insert_node_obj_into_bst(20, root_node)
+    root_node.insert_node_obj_into_bst(2, root_node)
     root_node.insert_node_obj_into_bst(6, root_node)
+    root_node.insert_node_obj_into_bst(5, root_node)
+    root_node.insert_node_obj_into_bst(3, root_node)
     root_node.insert_node_obj_into_bst(9, root_node)
-    value_in_tree = root_node.look_up_value(root_node, 9)
+    root_node.insert_node_obj_into_bst(1, root_node)
+    root_node.insert_node_obj_into_bst(10, root_node)
+    value_in_tree = root_node.look_up_value(6, root_node)
     print(value_in_tree)
-    print_tree_in_order(root_node)
+    #root_node.deletes_node(3, root_node)
+    root_node.print_tree_in_order(root_node)
 
 
 if __name__ == '__main__':
